@@ -12,8 +12,8 @@ st.title('DCGAN Image Generation')
 latent_dim = generator.input_shape[1]
 
 # Function to generate and display images
-def generate_images(num_images=1):
-    noise = tf.random.normal([num_images, latent_dim])
+def generate_images(num_images=1, randomness_level=1.0):
+    noise = tf.random.normal([num_images, latent_dim]) * randomness_level
     generated_images = generator(noise, training=False)
     generated_images = (generated_images * 127.5) + 127.5  # Denormalize the images
 
@@ -24,6 +24,7 @@ def generate_images(num_images=1):
 # Sidebar for user input
 st.sidebar.title('Options')
 num_images = st.sidebar.slider('Number of Images', 1, 10, 1, 1)
+randomness_level = st.sidebar.slider('Randomness Level', 0.0, 2.0, 1.0, 0.1)
 
 if st.sidebar.button('Generate Images'):
-    generate_images(num_images)
+    generate_images(num_images, randomness_level)
