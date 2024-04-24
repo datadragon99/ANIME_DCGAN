@@ -4,6 +4,7 @@ import numpy as np
 from tensorflow.keras.preprocessing.image import array_to_img
 import base64
 from io import BytesIO
+from PIL import Image
 
 # Load the trained generator model
 generator = tf.keras.models.load_model('generator.h5')
@@ -23,6 +24,7 @@ def generate_images(num_images=1, randomness_level=1.0):
 # Function to download an image
 def download_image(image, file_name):
     img = array_to_img(image)
+    img = Image.fromarray((img * 255).astype('uint8'), 'RGB')
     buf = BytesIO()
     img.save(buf, format="PNG")
     byte_im = buf.getvalue()
