@@ -32,13 +32,12 @@ def download_image(image, file_name):
 
 # Sidebar for user input
 st.sidebar.title('Options')
-num_images = st.sidebar.slider('Number of Images', 1, 10, 5, 1)
+num_images = st.sidebar.slider('Number of Images', 1, 10, 1, 1)
 randomness_level = st.sidebar.slider('Randomness Level', 0.0, 2.0, 1.0, 0.1)
 
 if st.sidebar.button('Generate Images'):
     generated_images = generate_images(num_images, randomness_level)
 
-    cols = st.columns(num_images)
-    for i, col in enumerate(cols):
-        col.image(generated_images[i], caption=f'Generated Image {i+1}', use_column_width=True)
-        col.markdown(download_image(generated_images[i], f'image_{i+1}'), unsafe_allow_html=True)
+    for i, img in enumerate(generated_images):
+        st.image(img, caption=f'Generated Image {i+1}', use_column_width=True)
+        st.markdown(download_image(img, f'image_{i+1}'), unsafe_allow_html=True)
