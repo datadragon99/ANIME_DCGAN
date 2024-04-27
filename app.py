@@ -6,7 +6,7 @@ from zipfile import ZipFile
 from io import BytesIO
 
 # Load the trained generator model
-generator = tf.keras.models.load_model('gen.h5')
+generator = tf.keras.models.load_model('generator.h5')
 
 st.title('DCGAN Image Generation')
 
